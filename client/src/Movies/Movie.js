@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 export default function Movie(props) {
   const [movie, setMovie] = useState();
 
-  let id = 1;
+  const { id } = useParams();
   // Change ^^^ that line and use a hook to obtain the :id parameter from the URL
 
   useEffect(() => {
@@ -13,6 +14,8 @@ export default function Movie(props) {
       .then(response => {
         // Study this response with a breakpoint or log statements
         // and set the response data as the 'movie' slice of state
+        response.data && console.log(response.data);
+        setMovie(response.data)
       })
       .catch(error => {
         console.error(error);
@@ -24,9 +27,7 @@ export default function Movie(props) {
   // Uncomment this only when you have moved on to the stretch goals
   // const saveMovie = evt => { }
 
-  if (!movie) {
-    return <div>Loading movie information...</div>;
-  }
+  if (!movie) return <div>Loading movie information...</div>;
 
   const { title, director, metascore, stars } = movie;
 
