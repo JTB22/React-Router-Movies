@@ -1,9 +1,13 @@
 import React from 'react';
 
 export default function MovieList(props) {
+
+  const { movies } = props;
+
+  if (!movies) return <div>Loading movie information...</div>;
   return (
     <div className="movie-list">
-      {props.movies.map(movie => (
+      {movies.map(movie => (
         <MovieDetails key={movie.id} movie={movie} />
       ))}
     </div>
@@ -13,6 +17,7 @@ export default function MovieList(props) {
 function MovieDetails(props) {
   const { title, director, metascore } = props.movie;
 
+  if (!props.movie) return <div>Loading movie information...</div>;
   return (
     <div className="movie-card">
       <h2>{title}</h2>
